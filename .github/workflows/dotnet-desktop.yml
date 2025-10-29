@@ -1,5 +1,6 @@
 # Build + publish a single self-contained Windows single-file executable.
-# This workflow automatically finds a .sln or .csproj in the repo and publishes it.
+# Uses the solution file AvaloniaApplication1.sln at repository root to produce
+# a self-contained single-file EXE and upload it as an artifact.
 name: Build and publish .NET Desktop (self-contained single-file)
 
 on:
@@ -16,9 +17,10 @@ jobs:
     strategy:
       matrix:
         configuration: [Release]
-        runtime: [win-x64]
+        runtime: [win-x64]  # change/add win-x86 if you need 32-bit output
 
     env:
+      Solution_Name: AvaloniaApplication1.sln
       CONFIGURATION: ${{ matrix.configuration }}
       RUNTIME: ${{ matrix.runtime }}
       PUBLISH_DIR: ${{ github.workspace }}/artifacts/${{ matrix.runtime }}
@@ -34,52 +36,27 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
-    # Optional debug: list top-level files (useful to verify where your .sln/.csproj is)
-    - name: Debug: list repository files (top 3 levels)
-      shell: pwsh
-      run: |
-        Write-Host "Workspace: $env:GITHUB_WORKSPACE"
-        Get-ChildItem -Path $env:GITHUB_WORKSPACE -Recurse -Depth 3 | Select-Object -First 200
-
-    # Find a .sln or .csproj file and export its full path as step output 'project'
-    - name: Find solution or project file
-      id: find
-      shell: pwsh
-      run: |
-        $workspace = $env:GITHUB_WORKSPACE
-        $sln = Get-ChildItem -Path $workspace -Recurse -Filter *.sln -File -ErrorAction SilentlyContinue | Select-Object -First 1
-        if ($sln) {
-          Write-Host "Found solution: $($sln.FullName)"
-          echo "project=$($sln.FullName)" >> $env:GITHUB_OUTPUT
-          exit 0
-        }
-        $csproj = Get-ChildItem -Path $workspace -Recurse -Filter *.csproj -File | Select-Object -First 1
-        if ($csproj) {
-          Write-Host "Found csproj: $($csproj.FullName)"
-          echo "project=$($csproj.FullName)" >> $env:GITHUB_OUTPUT
-          exit 0
-        }
-        Write-Error "No .sln or .csproj found in repository. Make sure a solution or project file is committed."
-
-    - name: Restore (uses discovered project)
+    - name: Restore
       shell: pwsh
       env:
-        PROJECT_PATH: ${{ steps.find.outputs.project }}
+        SOLUTION: ${{ env.Solution_Name }}
       run: |
-        Write-Host "Running dotnet restore for $Env:PROJECT_PATH"
-        dotnet restore "$Env:PROJECT_PATH"
+        Write-Host "Restoring solution: $Env:SOLUTION"
+        dotnet restore "$Env:SOLUTION"
 
     - name: Publish single-file self-contained executable
       shell: pwsh
       env:
-        PROJECT_PATH: ${{ steps.find.outputs.project }}
+        SOLUTION: ${{ env.Solution_Name }}
+        CONFIGURATION: ${{ matrix.configuration }}
+        RUNTIME: ${{ matrix.runtime }}
         PUBLISH_DIR: ${{ env.PUBLISH_DIR }}
       run: |
         if (-not (Test-Path -Path $Env:PUBLISH_DIR)) {
           New-Item -ItemType Directory -Path $Env:PUBLISH_DIR | Out-Null
         }
 
-        dotnet publish "$Env:PROJECT_PATH" `
+        dotnet publish "$Env:SOLUTION" `
           -c $Env:CONFIGURATION `
           -r $Env:RUNTIME `
           --self-contained true `
