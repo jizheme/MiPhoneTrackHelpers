@@ -1,0 +1,31 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="using:AvaloniaApplication1"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		x:Class="AvaloniaApplication1.MainWindow"
+		Title="AvaloniaApplication1">
+	<Grid DockPanel.Dock="Top">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<DockPanel  Grid.Column="1" LastChildFill="True">
+			<Grid DockPanel.Dock="Top" Height="40">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Menu Grid.Column="0" Height="32" Padding="0" Margin="10 0 0 0">
+					<MenuItem Height="32" Width="85" Header="历史点位" Click="MenuItem_Click"/>						
+					<MenuItem Height="32" Width="85" Header="参数设置" Click="MenuItem_Click_1" />
+				</Menu>				
+			</Grid>
+			<Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">				
+				<local:HomePageView x:Name="MiWebView" Margin="10,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+			</Grid>
+		</DockPanel>
+	</Grid>
+</Window>

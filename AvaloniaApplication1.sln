@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiPhoneTrackHelpers", "AvaloniaApplication1\MiPhoneTrackHelpers.csproj", "{C6782A6F-7DAD-4ACD-A011-08CB89176BBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6782A6F-7DAD-4ACD-A011-08CB89176BBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6782A6F-7DAD-4ACD-A011-08CB89176BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6782A6F-7DAD-4ACD-A011-08CB89176BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6782A6F-7DAD-4ACD-A011-08CB89176BBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59BB3C0A-075F-447B-93AE-BE13173177BB}
+	EndGlobalSection
+EndGlobal

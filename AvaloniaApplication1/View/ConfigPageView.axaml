@@ -1,0 +1,29 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaApplication1.ConfigPageView">
+  <ScrollViewer>
+    <StackPanel Margin="20">
+      <TextBlock Margin="0 20" FontSize="20" FontWeight="Bold">设置</TextBlock>
+
+      <TextBlock Text="时长"  VerticalAlignment="Center" Margin="0 0 10 0"/>
+      <TextBlock Text="{Binding #slider1.Value, StringFormat='{}{0:F0}小时'}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10 0 0 0"/>
+      <Slider Grid.Column="1" x:Name="slider1" Maximum="72" Minimum="1" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="Outside"/>
+
+      <TextBlock Text="跟踪坐标高度"  VerticalAlignment="Center" Margin="0 0 10 0"/>
+      <TextBlock Text="{Binding #slider2.Value, StringFormat='{}{0:F2}'}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10 0 0 0"/>
+      <Slider Grid.Column="1" x:Name="slider2" Maximum="24" Minimum="1" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="Outside"/>
+
+      <TextBlock Text="查询精度"  VerticalAlignment="Center" Margin="0 0 10 0"/>
+      <TextBlock Text="{Binding #slider3.Value, StringFormat='{}{0:F2}'}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10 0 0 0"/>
+      <Slider Grid.Column="1" x:Name="slider3" Maximum="100" Minimum="1" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="Outside"/>
+
+
+     
+       <Button Width="80" Height="32" Click="Button_Click" >保存</Button>
+    
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
